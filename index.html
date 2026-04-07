@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polly Doodles KeyCraft — Custom Keychains, Magnets & Kids Crafts</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #e84393;
+  --primary-light: #fd79a8;
+  --primary-dark: #c44569;
+  --secondary: #00b894;
+  --accent: #fdcb6e;
+  --accent2: #74b9ff;
+  --accent3: #a29bfe;
+  --bg: #fff9f5;
+  --card-bg: #ffffff;
+  --text: #2d3436;
+  --text-light: #636e72;
+  --text-muted: #b2bec3;
+  --shadow: 0 4px 20px rgba(232,67,147,0.08);
+  --shadow-lg: 0 12px 40px rgba(232,67,147,0.12);
+  --radius: 16px;
+  --radius-lg: 24px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family:'Poppins',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; }
+button { cursor:pointer; border:none; background:none; font:inherit; }
+a { text-decoration:none; color:inherit; }
+
+/* ── Decorative Blobs ── */
+.blobs { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.blob { position:absolute; border-radius:50%; filter:blur(80px); opacity:0.08; animation:blob-float 20s ease-in-out infinite; }
+@keyframes blob-float { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-20px) scale(1.1)} 66%{transform:translate(-20px,10px) scale(0.95)} }
+
+/* ── Navigation ── */
+.nav { position:fixed; top:0; left:0; right:0; z-index:50; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; transition:all 0.4s ease; }
+.nav.scrolled { background:rgba(255,255,255,0.92); backdrop-filter:blur(16px); box-shadow:0 2px 20px rgba(0,0,0,0.06); padding:8px 24px; }
+.nav-logo { font-family:'Fredoka',sans-serif; font-size:26px; font-weight:700; color:var(--primary); display:flex; align-items:center; gap:8px; }
+.nav-logo span { font-size:28px; }
+.nav-links { display:flex; gap:24px; align-items:center; }
+.nav-link { font-size:14px; font-weight:500; color:var(--text-light); transition:color 0.3s; position:relative; }
+.nav-link:hover { color:var(--primary); }
+.nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--primary); transition:width 0.3s; border-radius:2px; }
+.nav-link:hover::after { width:100%; }
+.nav-actions { display:flex; gap:12px; align-items:center; }
+.nav-btn { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.6); border:1px solid rgba(255,255,255,0.8); transition:all 0.3s; font-size:18px; position:relative; }
+.nav-btn:hover { background:var(--primary); color:white; transform:scale(1.08); }
+.cart-count { position:absolute; top:-2px; right:-2px; background:var(--accent); color:var(--text); font-size:9px; font-weight:700; width:16px; height:16px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+
+.mobile-menu-btn { display:none; font-size:24px; }
+
+/* ── Hero ── */
+.hero { position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:120px 24px 80px; overflow:hidden; background:linear-gradient(135deg,#fff5f8 0%,#ffecd2 50%,#f8e8ff 100%); }
+.hero-deco { position:absolute; font-size:48px; opacity:0.3; animation:float 6s ease-in-out infinite; }
+@keyframes float { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-20px) rotate(10deg)} }
+.hero-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(232,67,147,0.1); border:1px solid rgba(232,67,147,0.2); padding:8px 20px; border-radius:999px; font-size:12px; font-weight:600; color:var(--primary); text-transform:uppercase; letter-spacing:2px; margin-bottom:24px; animation:fadeDown 0.8s ease-out; }
+.hero-title { font-family:'Playfair Display',serif; font-size:clamp(40px,8vw,72px); font-weight:700; text-align:center; line-height:1.1; margin-bottom:16px; animation:fadeUp 0.8s ease-out 0.2s both; }
+.hero-title .gradient { background:linear-gradient(135deg,var(--primary),var(--primary-dark),#6c5ce7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-sub { font-size:18px; color:var(--text-light); text-align:center; max-width:500px; margin-bottom:32px; line-height:1.6; animation:fadeUp 0.8s ease-out 0.4s both; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+
+.search-box { width:100%; max-width:600px; position:relative; animation:fadeUp 0.8s ease-out 0.6s both; }
+.search-box input { width:100%; padding:18px 24px 18px 52px; border-radius:999px; border:2px solid rgba(255,255,255,0.8); background:rgba(255,255,255,0.9); backdrop-filter:blur(10px); font-size:16px; font-family:'Poppins',sans-serif; color:var(--text); box-shadow:0 8px 32px rgba(232,67,147,0.1); transition:all 0.3s; outline:none; }
+.search-box input:focus { border-color:var(--primary); box-shadow:0 8px 32px rgba(232,67,147,0.2); }
+.search-box input::placeholder { color:var(--text-muted); }
+.search-icon { position:absolute; left:20px; top:50%; transform:translateY(-50%); font-size:20px; color:var(--text-muted); }
+
+.hero-tags { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin-top:24px; animation:fadeUp 0.8s ease-out 0.8s both; }
+.hero-tag { padding:6px 16px; border-radius:999px; background:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.8); font-size:12px; font-weight:500; color:var(--text-light); transition:all 0.3s; }
+.hero-tag:hover { background:var(--primary); color:white; transform:scale(1.05); }
+
+.scroll-hint { position:absolute; bottom:32px; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:6px; color:var(--text-muted); font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:2px; animation:bounce 2s ease-in-out infinite; }
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+/* ── Section Styles ── */
+.section { position:relative; z-index:1; max-width:1200px; margin:0 auto; padding:80px 24px; }
+.section-header { text-align:center; margin-bottom:48px; }
+.section-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(232,67,147,0.08); padding:6px 16px; border-radius:999px; font-size:11px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:2px; margin-bottom:12px; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(28px,5vw,42px); font-weight:700; color:var(--text); margin-bottom:8px; }
+.section-sub { font-size:15px; color:var(--text-light); max-width:500px; margin:0 auto; line-height:1.6; }
+
+/* ── Category Tabs ── */
+.category-tabs { display:flex; gap:8px; justify-content:center; margin-bottom:48px; flex-wrap:wrap; position:relative; z-index:1; }
+.cat-tab { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:999px; font-size:14px; font-weight:600; color:var(--text-light); background:white; border:1px solid rgba(0,0,0,0.06); transition:all 0.3s; }
+.cat-tab:hover { border-color:var(--primary-light); color:var(--primary); }
+.cat-tab.active { background:var(--primary); color:white; border-color:var(--primary); box-shadow:0 4px 16px rgba(232,67,147,0.3); }
+.cat-tab .tab-emoji { font-size:18px; }
+.cat-tab .tab-count { font-size:10px; background:rgba(255,255,255,0.2); padding:2px 8px; border-radius:999px; }
+.cat-tab.active .tab-count { background:rgba(255,255,255,0.3); }
+
+/* ── Product Grid ── */
+.product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; }
+.product-card { background:white; border-radius:var(--radius-lg); overflow:hidden; border:1px solid rgba(0,0,0,0.04); transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); opacity:0; transform:translateY(30px); position:relative; }
+.product-card.visible { opacity:1; transform:translateY(0); }
+.product-card:hover { transform:translateY(-8px); box-shadow:var(--shadow-lg); }
+.product-img { width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:64px; position:relative; overflow:hidden; }
+.product-img::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 60%,rgba(0,0,0,0.02) 100%); }
+.product-badge { position:absolute; top:12px; left:12px; z-index:2; padding:4px 12px; border-radius:999px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1px; }
+.badge-new { background:var(--secondary); color:white; }
+.badge-popular { background:var(--accent); color:var(--text); }
+.badge-sale { background:var(--primary); color:white; }
+.product-fav { position:absolute; top:12px; right:12px; z-index:2; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.9); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; font-size:16px; transition:all 0.3s; opacity:0; transform:scale(0.8); }
+.product-card:hover .product-fav { opacity:1; transform:scale(1); }
+.product-fav.liked { opacity:1; transform:scale(1); }
+.product-fav.liked::after { content:''; animation:heartPop 0.4s ease-out; }
+@keyframes heartPop { 0%{transform:scale(0)} 50%{transform:scale(1.5)} 100%{transform:scale(1)} }
+.product-info { padding:16px 18px 18px; }
+.product-name { font-weight:700; font-size:15px; margin-bottom:4px; line-height:1.3; }
+.product-desc { font-size:12px; color:var(--text-light); margin-bottom:12px; line-height:1.5; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.product-bottom { display:flex; align-items:center; justify-content:space-between; }
+.product-price { font-family:'Fredoka',sans-serif; font-size:20px; font-weight:700; color:var(--primary); }
+.product-price .old { font-size:13px; color:var(--text-muted); text-decoration:line-through; margin-left:4px; font-family:'Poppins',sans-serif; }
+.add-btn { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:white; display:flex; align-items:center; justify-content:center; font-size:20px; transition:all 0.3s; }
+.add-btn:hover { transform:scale(1.15) rotate(90deg); box-shadow:0 4px 16px rgba(232,67,147,0.4); }
+
+/* ── Category Sections ── */
+.category-section { margin-bottom:64px; }
+.category-header { display:flex; align-items:center; gap:16px; margin-bottom:24px; }
+.category-emoji { width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px; }
+.category-title { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; }
+.category-count { font-size:13px; color:var(--text-light); }
+
+/* ── Featured Banner ── */
+.featured-banner { background:linear-gradient(135deg,var(--primary),#6c5ce7,var(--accent2)); border-radius:var(--radius-lg); padding:48px; color:white; display:flex; align-items:center; gap:48px; margin-bottom:64px; position:relative; overflow:hidden; }
+.featured-banner::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+.featured-text { position:relative; z-index:1; flex:1; }
+.featured-badge { display:inline-block; background:rgba(255,255,255,0.2); padding:6px 16px; border-radius:999px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px; }
+.featured-title { font-family:'Playfair Display',serif; font-size:36px; font-weight:700; margin-bottom:12px; }
+.featured-desc { font-size:15px; opacity:0.9; line-height:1.6; margin-bottom:24px; }
+.featured-cta { display:inline-flex; align-items:center; gap:8px; background:white; color:var(--primary); padding:14px 28px; border-radius:999px; font-weight:700; font-size:14px; transition:all 0.3s; }
+.featured-cta:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.2); }
+.featured-img { position:relative; z-index:1; font-size:120px; animation:float 4s ease-in-out infinite; }
+
+/* ── Newsletter ── */
+.newsletter { background:linear-gradient(135deg,#fff5f8,#ffecd2,#f8e8ff); border-radius:var(--radius-lg); padding:48px; text-align:center; }
+.newsletter-emoji { font-size:48px; margin-bottom:16px; }
+.newsletter-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; margin-bottom:8px; }
+.newsletter-desc { font-size:14px; color:var(--text-light); margin-bottom:24px; max-width:400px; margin-left:auto; margin-right:auto; }
+.newsletter-form { display:flex; gap:8px; max-width:480px; margin:0 auto; }
+.newsletter-form input { flex:1; padding:14px 20px; border-radius:999px; border:2px solid rgba(232,67,147,0.2); font-family:'Poppins',sans-serif; font-size:14px; outline:none; background:white; transition:border-color 0.3s; }
+.newsletter-form input:focus { border-color:var(--primary); }
+.newsletter-form button { padding:14px 28px; background:var(--primary); color:white; border-radius:999px; font-weight:700; font-size:14px; transition:all 0.3s; white-space:nowrap; }
+.newsletter-form button:hover { background:var(--primary-dark); transform:translateY(-2px); box-shadow:0 8px 24px rgba(232,67,147,0.3); }
+
+/* ── Cart Sidebar ── */
+.cart-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:99; opacity:0; visibility:hidden; transition:all 0.3s; }
+.cart-overlay.open { opacity:1; visibility:visible; }
+.cart-sidebar { position:fixed; top:0; right:0; bottom:0; width:400px; max-width:90vw; background:white; z-index:100; transform:translateX(100%); transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); display:flex; flex-direction:column; }
+.cart-sidebar.open { transform:translateX(0); }
+.cart-header { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid #f1f5f9; }
+.cart-header h3 { font-weight:700; font-size:18px; }
+.cart-close { font-size:24px; color:var(--text-light); transition:color 0.3s; }
+.cart-close:hover { color:var(--primary); }
+.cart-body { flex:1; overflow-y:auto; padding:16px 24px; }
+.cart-item { display:flex; gap:12px; padding:12px 0; border-bottom:1px solid #f8fafc; }
+.cart-item-img { width:56px; height:56px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:28px; flex-shrink:0; }
+.cart-item-info { flex:1; }
+.cart-item-name { font-weight:600; font-size:14px; margin-bottom:2px; }
+.cart-item-price { font-size:13px; color:var(--primary); font-weight:700; }
+.cart-item-qty { display:flex; align-items:center; gap:8px; margin-top:6px; }
+.qty-btn { width:24px; height:24px; border-radius:50%; border:1px solid #e2e8f0; display:flex; align-items:center; justify-content:center; font-size:14px; transition:all 0.2s; }
+.qty-btn:hover { border-color:var(--primary); color:var(--primary); }
+.qty-num { font-size:13px; font-weight:700; min-width:20px; text-align:center; }
+.cart-item-remove { font-size:14px; color:var(--text-muted); padding:4px; transition:color 0.3s; }
+.cart-item-remove:hover { color:#ef4444; }
+.cart-empty { text-align:center; padding:60px 20px; color:var(--text-muted); }
+.cart-empty .empty-emoji { font-size:64px; margin-bottom:16px; }
+.cart-footer { padding:20px 24px; border-top:1px solid #f1f5f9; }
+.cart-total { display:flex; justify-content:space-between; font-weight:700; font-size:18px; margin-bottom:16px; }
+.cart-total span:last-child { color:var(--primary); font-family:'Fredoka',sans-serif; font-size:22px; }
+.checkout-btn { width:100%; padding:16px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:white; border-radius:999px; font-weight:700; font-size:15px; transition:all 0.3s; }
+.checkout-btn:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(232,67,147,0.4); }
+
+/* ── Toast ── */
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(100px); background:var(--text); color:white; padding:14px 28px; border-radius:999px; font-size:14px; font-weight:600; z-index:200; transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); box-shadow:0 8px 32px rgba(0,0,0,0.2); display:flex; align-items:center; gap:8px; }
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ── Footer ── */
+.footer { background:var(--text); color:white; padding:60px 24px 24px; margin-top:80px; position:relative; z-index:1; }
+.footer-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+.footer-brand { font-family:'Fredoka',sans-serif; font-size:28px; color:white; margin-bottom:12px; }
+.footer-desc { font-size:14px; color:rgba(255,255,255,0.6); line-height:1.6; }
+.footer-title { font-weight:700; font-size:14px; margin-bottom:16px; text-transform:uppercase; letter-spacing:1px; }
+.footer-link { display:block; font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:8px; transition:color 0.3s; }
+.footer-link:hover { color:var(--primary-light); }
+.footer-bottom { max-width:1200px; margin:0 auto; padding-top:24px; border-top:1px solid rgba(255,255,255,0.1); text-align:center; font-size:13px; color:rgba(255,255,255,0.4); }
+
+/* ── Responsive ── */
+@media(max-width:768px) {
+  .nav-links { display:none; }
+  .mobile-menu-btn { display:block; }
+  .hero { padding:100px 20px 60px; min-height:auto; padding-top:140px; }
+  .hero-title { font-size:36px; }
+  .hero-sub { font-size:15px; }
+  .section { padding:48px 16px; }
+  .product-grid { grid-template-columns:1fr 1fr; gap:12px; }
+  .product-img { font-size:48px; }
+  .product-info { padding:12px; }
+  .product-name { font-size:13px; }
+  .product-price { font-size:16px; }
+  .featured-banner { flex-direction:column; padding:32px; text-align:center; }
+  .featured-title { font-size:28px; }
+  .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
+  .newsletter-form { flex-direction:column; }
+  .newsletter { padding:32px 20px; }
+  .newsletter-form button { width:100%; }
+}
+
+@media(max-width:480px) {
+  .product-grid { grid-template-columns:1fr 1fr; gap:8px; }
+  .product-img { font-size:40px; }
+  .category-tabs { gap:4px; }
+  .cat-tab { padding:8px 14px; font-size:12px; }
+}
+
+/* ── Page Transitions ── */
+.page-enter { animation:pageSlideIn 0.6s ease-out; }
+@keyframes pageSlideIn { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+</style>
+</head>
+<body>
+
+<div class="blobs">
+  <div class="blob" style="width:400px;height:400px;background:var(--primary);top:-100px;left:-100px;animation-delay:0s"></div>
+  <div class="blob" style="width:300px;height:300px;background:var(--accent2);top:50%;right:-50px;animation-delay:5s"></div>
+  <div class="blob" style="width:350px;height:350px;background:var(--accent3);bottom:0;left:20%;animation-delay:10s"></div>
+</div>
+
+<!-- Navigation -->
+<nav class="nav" id="nav">
+  <div class="nav-logo"><span>✨</span> Polly Doodles KeyCraft</div>
+  <div class="nav-links">
+    <a href="#keychains" class="nav-link">Keychains</a>
+    <a href="#magnets" class="nav-link">Magnets</a>
+    <a href="#kids-crafts" class="nav-link">Kids Crafts</a>
+    <a href="#newsletter" class="nav-link">Stay Updated</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="toggleCart()" aria-label="Cart">
+      🛒
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-deco" style="top:15%;left:8%;animation-delay:0s">🔑</div>
+  <div class="hero-deco" style="top:20%;right:12%;animation-delay:1s">🧲</div>
+  <div class="hero-deco" style="top:60%;left:5%;animation-delay:2s">🎨</div>
+  <div class="hero-deco" style="bottom:20%;right:8%;animation-delay:3s">💎</div>
+  <div class="hero-deco" style="top:40%;left:15%;animation-delay:4s">🌈</div>
+  
+  <div>
+    <div style="text-align:center">
+      <div class="hero-badge">🎨 Handmade with Love</div>
+    </div>
+    <h1 class="hero-title">
+      Custom <span class="gradient">Keychains</span>,<br>
+      Magnets & Crafts
+    </h1>
+    <p class="hero-sub">Adorable handmade goodies to brighten your day, decorate your fridge, and spark joy in little hands.</p>
+    
+    <div class="search-box">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder='Search for "unicorn keychain"...' id="searchInput" oninput="filterProducts()">
+    </div>
+    
+    <div class="hero-tags">
+      <span class="hero-tag" onclick="searchFor('keychain')">🔑 Keychains</span>
+      <span class="hero-tag" onclick="searchFor('magnet')">🧲 Magnets</span>
+      <span class="hero-tag" onclick="searchFor('kids')">🎨 Kids Crafts</span>
+      <span class="hero-tag" onclick="searchFor('custom')">✨ Custom</span>
+      <span class="hero-tag" onclick="searchFor('new')">🆕 New Arrivals</span>
+    </div>
+  </div>
+  
+  <a href="#shop" class="scroll-hint" id="scrollHint">
+    Explore the Shop
+    <span>↓</span>
+  </a>
+</section>
+
+<!-- Shop Content -->
+<main id="shop" class="section page-enter" style="padding-top:80px">
+  
+  <!-- Category Tabs -->
+  <div class="category-tabs" id="categoryTabs">
+    <button class="cat-tab active" onclick="filterCategory('all',this)">
+      <span class="tab-emoji">✨</span>
+      All Items
+      <span class="tab-count" id="countAll">24</span>
+    </button>
+    <button class="cat-tab" onclick="filterCategory('keychain',this)">
+      <span class="tab-emoji">🔑</span>
+      Keychains
+      <span class="tab-count">8</span>
+    </button>
+    <button class="cat-tab" onclick="filterCategory('magnet',this)">
+      <span class="tab-emoji">🧲</span>
+      Magnets
+      <span class="tab-count">8</span>
+    </button>
+    <button class="cat-tab" onclick="filterCategory('kids',this)">
+      <span class="tab-emoji">🎨</span>
+      Kids Crafts
+      <span class="tab-count">8</span>
+    </button>
+  </div>
+
+  <!-- Featured Banner -->
+  <div class="featured-banner">
+    <div class="featured-text">
+      <div class="featured-badge">🌟 Limited Edition</div>
+      <h2 class="featured-title">Easter Collection 2026</h2>
+      <p class="featured-desc">Bunny keychains, egg magnets and spring craft kits — all made to order. Don't miss out, these sell out every year!</p>
+      <a href="#" class="featured-cta" onclick="filterCategory('all');return false">
+        Shop the Collection →
+      </a>
+    </div>
+    <div class="featured-img">🐰</div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="product-grid" id="productGrid"></div>
+
+  <!-- Newsletter Section -->
+  <section id="newsletter" style="margin-top:64px">
+    <div class="newsletter">
+      <div class="newsletter-emoji">💌</div>
+      <h2 class="newsletter-title">Stay Updated</h2>
+      <p class="newsletter-desc">Get notified about new products, limited editions, and exclusive discounts. No spam — we promise!</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="your@email.com" id="emailInput">
+        <button onclick="subscribeNewsletter()">Subscribe ✨</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">✨ Polly Doodles KeyCraft</div>
+      <p class="footer-desc">Handmade custom keychains, magnets, and kids craft kits. Each piece is made with love and care.</p>
+    </div>
+    <div>
+      <div class="footer-title">Shop</div>
+      <a href="#" class="footer-link">Keychains</a>
+      <a href="#" class="footer-link">Magnets</a>
+      <a href="#" class="footer-link">Kids Crafts</a>
+      <a href="#" class="footer-link">Gift Sets</a>
+    </div>
+    <div>
+      <div class="footer-title">Help</div>
+      <a href="#" class="footer-link">Shipping Info</a>
+      <a href="#" class="footer-link">Returns</a>
+      <a href="#" class="footer-link">FAQ</a>
+      <a href="#" class="footer-link">Contact Us</a>
+    </div>
+    <div>
+      <div class="footer-title">Follow Us</div>
+      <a href="#" class="footer-link">📸 Instagram</a>
+      <a href="#" class="footer-link">🎵 TikTok</a>
+      <a href="#" class="footer-link">📱 Facebook</a>
+      <a href="#" class="footer-link">📌 Pinterest</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Polly Doodles KeyCraft. Made with 💖 for creative souls everywhere.
+  </div>
+</footer>
+
+<!-- Cart Overlay -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- Cart Sidebar -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>🛒 Your Cart</h3>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty">
+      <div class="empty-emoji">🛒</div>
+      <p>Your cart is empty</p>
+      <p style="font-size:13px;margin-top:4px">Add some cute stuff!</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">$0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="checkout()">Checkout →</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Products Data ──
+const products = [
+  // Keychains
+  {id:1, name:'Unicorn Sparkle Keychain', desc:'Magical unicorn with iridescent mane, resin-coated', price:12.99, category:'keychain', emoji:'🦄', badge:'popular', bg:'linear-gradient(135deg,#fd79a8,#a29bfe)'},
+  {id:2, name:'Custom Photo Keychain', desc:'Upload your favorite photo in a cute acrylic charm', price:15.99, category:'keychain', emoji:'📸', badge:'new', bg:'linear-gradient(135deg,#74b9ff,#a29bfe)'},
+  {id:3, name:'Glitter Heart Keychain', desc:'Pink glitter-filled heart that sparkles in the light', price:9.99, oldPrice:12.99, category:'keychain', emoji:'💖', badge:'sale', bg:'linear-gradient(135deg,#fd79a8,#ff6b6b)'},
+  {id:4, name:'Mini Succulent Keychain', desc:'Realistic tiny succulent in a tiny pot charm', price:8.99, category:'keychain', emoji:'🌵', badge:'', bg:'linear-gradient(135deg,#55efc4,#00b894)'},
+  {id:5, name:'Galaxy Resin Keychain', desc:'Deep blue and purple swirl with gold flakes', price:13.99, category:'keychain', emoji:'🌌', badge:'popular', bg:'linear-gradient(135deg,#6c5ce7,#0984e3)'},
+  {id:6, name:'Bunny Easter Keychain', desc:'Adorable bunny with pastel bow, limited edition', price:11.99, category:'keychain', emoji:'🐰', badge:'new', bg:'linear-gradient(135deg,#ffeaa7,#fdcb6e)'},
+  {id:7, name:'Cat Paw Keychain', desc:'Soft silicone cat paw, perfect for bags and keys', price:7.99, category:'keychain', emoji:'🐾', badge:'', bg:'linear-gradient(135deg,#fab1a0,#ff7675)'},
+  {id:8, name:'Butterfly Rainbow Keychain', desc:'Translucent rainbow butterfly with metallic finish', price:10.99, category:'keychain', emoji:'🦋', badge:'', bg:'linear-gradient(135deg,#fd79a8,#fdcb6e)'},
+  
+  // Magnets
+  {id:9, name:'Fridge Photo Clip Magnets', desc:'Set of 4 wooden clips with colorful magnets', price:14.99, category:'magnet', emoji:'📎', badge:'popular', bg:'linear-gradient(135deg,#81ecec,#74b9ff)'},
+  {id:10, name:'Motivational Quote Magnets', desc:'Set of 6 colorful quotes to brighten your day', price:16.99, category:'magnet', emoji:'💬', badge:'new', bg:'linear-gradient(135deg,#a29bfe,#74b9ff)'},
+  {id:11, name:'3D Flower Magnets', desc:'Delicate resin flowers in 5 spring colors', price:19.99, category:'magnet', emoji:'🌸', badge:'', bg:'linear-gradient(135deg,#fdcb6e,#ffa5c8)'},
+  {id:12, name:'Fruit Slice Magnets', desc:'Cute citrus slices - orange, lemon, watermelon', price:11.99, category:'magnet', emoji:'🍊', bg:'linear-gradient(135deg,#ffeaa7,#fab1a0)'},
+  {id:13, name:'Egg Easter Magnet Set', desc:'Set of 6 hand-painted Easter egg magnets', price:15.99, category:'magnet', emoji:'🥚', badge:'new', bg:'linear-gradient(135deg,#dfe6e9,#74b9ff)'},
+  {id:14, name:'Planet Solar System Magnets', desc:'Educational set - all 8 planets plus the sun', price:22.99, category:'magnet', emoji:'🪐', badge:'', bg:'linear-gradient(135deg,#6c5ce7,#2d3436)'},
+  {id:15, name:'Kawaii Animal Magnets', desc:'6 adorable cartoon animals - cats, dogs, bunnies', price:17.99, oldPrice:21.99, category:'magnet', emoji:'🐱', badge:'sale', bg:'linear-gradient(135deg,#fd79a8,#ffeaa7)'},
+  {id:16, name:'Seasons Tree Magnets', desc:'4 magnets showing a tree through all 4 seasons', price:24.99, category:'magnet', emoji:'🌳', badge:'', bg:'linear-gradient(135deg,#55efc4,#ffeaa7)'},
+  
+  // Kids Crafts
+  {id:17, name:'DIY Bracelet Making Kit', desc:'Everything needed for 5 friendship bracelets', price:18.99, category:'kids', emoji:'📿', badge:'popular', bg:'linear-gradient(135deg,#fdcb6e,#e17055)'},
+  {id:18, name:'Clay Sculpting Set', desc:'Air-dry clay in 12 colors with tools and guidebook', price:24.99, category:'kids', emoji:'🏺', badge:'', bg:'linear-gradient(135deg,#fab1a0,#e17055)'},
+  {id:19, name:'Paint-by-Sticker Canvas', desc:'Mess-free art activity - 4 designs included', price:12.99, category:'kids', emoji:'🖼️', badge:'new', bg:'linear-gradient(135deg,#a29bfe,#fd79a8)'},
+  {id:20, name:'Slime Making Kit', desc:'Safe, non-toxic slime with glitter and add-ins', price:16.99, category:'kids', emoji:'🟢', bg:'linear-gradient(135deg,#55efc4,#00b894)'},
+  {id:21, name:'Water Paint Set', desc:'10 vibrant watercolor paints with brushes & paper', price:14.99, category:'kids', emoji:'🎨', badge:'sale', oldPrice:19.99, bg:'linear-gradient(135deg,#74b9ff,#0984e3)'},
+  {id:22, name:'Origami Starter Kit', desc:'100 patterned papers + video tutorial access', price:11.99, category:'kids', emoji:'📜', badge:'', bg:'linear-gradient(135deg,#ffeaa7,#fdcb6e)'},
+  {id:23, name:'Beaded Jewelry Kit', desc:'Make your own necklace, bracelet and ring', price:19.99, category:'kids', emoji:'💎', badge:'popular', bg:'linear-gradient(135deg,#dfe6e9,#fd79a8)'},
+  {id:24, name:'Easter Basket Craft Kit', desc:'Decorate your own basket with stickers and ribbon', price:13.99, category:'kids', emoji:'🧺', badge:'new', bg:'linear-gradient(135deg,#ffa5c8,#ffeaa7)'},
+];
+
+// ── Cart State ──
+let cart = [];
+
+// ── Render Products ──
+function renderProducts(list) {
+  const grid = document.getElementById('productGrid');
+  if (list.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-muted)"><div style="font-size:64px;margin-bottom:16px">🔍</div><p style="font-size:16px">No products found</p></div>';
+    return;
+  }
+  grid.innerHTML = list.map((p, i) => `
+    <div class="product-card" data-category="${p.category}" data-name="${p.name.toLowerCase()}" style="transition-delay:${i * 50}ms">
+      ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge === 'sale' ? '🔥 Sale' : p.badge === 'popular' ? '⭐ Popular' : '🆕 New'}</span>` : ''}
+      <button class="product-fav" onclick="toggleFav(this)">🤍</button>
+      <div class="product-img" style="background:${p.bg}">${p.emoji}</div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-bottom">
+          <div class="product-price">$${p.price.toFixed(2)}${p.oldPrice ? `<span class="old">$${p.oldPrice.toFixed(2)}</span>` : ''}</div>
+          <button class="add-btn" onclick="addToCart(${p.id})" aria-label="Add to cart">+</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  
+  // Animate cards in
+  requestAnimationFrame(() => {
+    const cards = grid.querySelectorAll('.product-card');
+    cards.forEach((c, i) => {
+      setTimeout(() => c.classList.add('visible'), i * 60);
+    });
+  });
+}
+
+// ── Filter ──
+let activeCategory = 'all';
+
+function filterCategory(cat, btn) {
+  activeCategory = cat;
+  // Update tabs
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else document.querySelector(`.cat-tab[onclick*="${cat}"]`)?.classList.add('active');
+  
+  const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+  renderProducts(filtered);
+}
+
+function filterProducts() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  let filtered = products;
+  if (activeCategory !== 'all') {
+    filtered = filtered.filter(p => p.category === activeCategory);
+  }
+  if (q) {
+    filtered = filtered.filter(p => 
+      p.name.toLowerCase().includes(q) || 
+      p.desc.toLowerCase().includes(q) || 
+      p.category.includes(q)
+    );
+  }
+  renderProducts(filtered);
+}
+
+function searchFor(term) {
+  document.getElementById('searchInput').value = term;
+  filterCategory('all');
+  filterProducts();
+  document.getElementById('shop').scrollIntoView({behavior:'smooth'});
+}
+
+// ── Cart Functions ──
+function addToCart(id) {
+  const product = products.find(p => p.id === id);
+  const existing = cart.find(c => c.id === id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({...product, qty:1});
+  }
+  updateCart();
+  showToast(`✅ ${product.name} added to cart!`);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCart();
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if (item) {
+    item.qty += delta;
+    if (item.qty <= 0) {
+      removeFromCart(id);
+      return;
+    }
+  }
+  updateCart();
+}
+
+function updateCart() {
+  const count = cart.reduce((s, c) => s + c.qty, 0);
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  
+  document.getElementById('cartCount').textContent = count;
+  document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
+  document.getElementById('countAll').textContent = products.length;
+  
+  const body = document.getElementById('cartBody');
+  if (cart.length === 0) {
+    body.innerHTML = '<div class="cart-empty"><div class="empty-emoji">🛒</div><p>Your cart is empty</p><p style="font-size:13px;margin-top:4px">Add some cute stuff!</p></div>';
+  } else {
+    body.innerHTML = cart.map(c => `
+      <div class="cart-item">
+        <div class="cart-item-img" style="background:${c.bg}">${c.emoji}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${c.name}</div>
+          <div class="cart-item-price">$${c.price.toFixed(2)}</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${c.id},-1)">−</button>
+            <span class="qty-num">${c.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${c.id},1)">+</button>
+          </div>
+        </div>
+        <button class="cart-item-remove" onclick="removeFromCart(${c.id})">🗑️</button>
+      </div>
+    `).join('');
+  }
+}
+
+function toggleCart() {
+  document.getElementById('cartOverlay').classList.toggle('open');
+  document.getElementById('cartSidebar').classList.toggle('open');
+}
+
+function checkout() {
+  if (cart.length === 0) return;
+  const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  showToast(`🎉 Order placed! Total: $${total.toFixed(2)}`);
+  cart = [];
+  updateCart();
+  toggleCart();
+}
+
+// ── Favorite ──
+function toggleFav(btn) {
+  btn.classList.toggle('liked');
+  btn.textContent = btn.classList.contains('liked') ? '❤️' : '🤍';
+}
+
+// ── Toast ──
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ── Newsletter ──
+function subscribeNewsletter() {
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email || !email.includes('@')) {
+    showToast('⚠️ Please enter a valid email');
+    return;
+  }
+  showToast(`💌 Subscribed with ${email}!`);
+  document.getElementById('emailInput').value = '';
+}
+
+// ── Mobile Menu ──
+function toggleMobileMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.display = 'flex';
+    links.style.position = 'fixed';
+    links.style.top = '64px';
+    links.style.left = '0';
+    links.style.right = '0';
+    links.style.background = 'white';
+    links.style.flexDirection = 'column';
+    links.style.padding = '24px';
+    links.style.gap = '16px';
+    links.style.boxShadow = '0 8px 32px rgba(0,0,0,0.1)';
+    links.style.borderRadius = '0 0 20px 20px';
+    links.style.zIndex = '49';
+  }
+}
+
+// ── Scroll Effects ──
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+  
+  // Hide scroll hint
+  const hint = document.getElementById('scrollHint');
+  if (hint) hint.style.opacity = window.scrollY > 200 ? '0' : '1';
+});
+
+// ── Init ──
+renderProducts(products);
+</script>
+</body>
+</html>
